@@ -1,6 +1,6 @@
 {
   "info": {
-    "name": "Document Processing",
+    "name": "Document Processing Workflow",
     "description": "Automated invoice processing with Flowable BPMN engine. Upload documents, get automatic or manual approval based on amount threshold.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "12345678"
