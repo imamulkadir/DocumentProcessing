@@ -99,7 +99,7 @@ POST http://localhost:5000/tasks
 1. Import `postman_collection.json`
 2. Check health: GET `/health`
 3. Get Token: GET `/getToken`
-4. Upload document: POST `/documents/upload` with file (Bearer token needed)
+4. Upload document: POST `/documents/upload` with file _(Bearer token needed)_
 5. Get Document Status: `documents/{{document_id}}`
 6. Approve task: POST `/tasks/{{task_id}}/complete` with action
 7. Reject task: POST `/tasks/{{task_id}}/complete` with action
@@ -114,7 +114,8 @@ POST http://localhost:5000/tasks
 3. Click "Import Process"
 4. Upload `bpmn/document_processing.bpmn`
 5. View the visual diagram
-   > **Note**: The process is auto-deployed to Flowable Engine on startup, but the Modeler requires manual import to visualize it.
+
+> **Note**: The process is auto-deployed to Flowable Engine on startup, but the Modeler requires manual import to visualize it.
 
 ## Project Structure
 
