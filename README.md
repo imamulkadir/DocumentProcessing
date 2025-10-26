@@ -269,4 +269,4 @@ Document Processing/
         └─────────────────┘
 ```
 
-_Author: <a href="https://github.com/imamulkadir" target="_blank">Imamul Kadir</a>_
+_Author: [Imamul Kadir](https://www.linkedin.com/in/imamulkadir/)_
