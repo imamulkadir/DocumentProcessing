@@ -69,26 +69,26 @@ GET http://localhost:5000/health
 GET http://localhost:5000/getToken
 ```
 
-### Upload Document
+### 3. Upload Document
 
 ```bash
 GET http://localhost:5000/documents/upload
 ```
 
-### Get Document Status
+### 4. Get Document Status
 
 ```bash
 GET http://localhost:5000/documents/{documentId}
 ```
 
-### Approve/Reject Task
+### 5. Approve/Reject Task
 
 ```bash
 POST http://localhost:5000/tasks/{taskId}/complete
 Body: { "action": "approve|reject", "reason": "..." }
 ```
 
-### Get All Pending Task
+### 6. Get All Pending Task
 
 ```bash
 POST http://localhost:5000/tasks
