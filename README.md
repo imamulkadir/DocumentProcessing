@@ -1,7 +1,7 @@
 <div align="center">
   <h1>Document Processing Workflow with Flowable</h1>
   <p>Automated document processing system using Flowable BPMN engine for invoice approval workflows.</p>
-  <img src="/diagram.svg" alt="BPMN Diagram" width="200">
+  <img src="/diagram.svg" alt="BPMN Diagram" width="800">
 </div>
 
 ## Run
