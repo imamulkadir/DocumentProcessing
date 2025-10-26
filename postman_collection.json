@@ -1,0 +1,249 @@
+{
+  "info": {
+    "name": "Document Processing",
+    "description": "Automated invoice processing with Flowable BPMN engine. Upload documents, get automatic or manual approval based on amount threshold.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "12345678"
+  },
+  "item": [
+    {
+      "name": "1. Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        },
+        "description": "Check if the API is running and healthy."
+      },
+      "response": []
+    },
+    {
+      "name": "2. Get Token",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "// Automatically add Bearer token from collection variable",
+              "const token = pm.collectionVariables.get('authToken');",
+              "if (token) {",
+              "    pm.request.headers.add({ key: 'Authorization', value: `Bearer ${token}` });",
+              "} else {",
+              "    console.warn('No authToken found — make sure to run /getToken first');",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Save authToken from response to collection variables",
+              "let data = pm.response.json();",
+              "pm.collectionVariables.set('authToken', data.token);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/getToken",
+          "host": ["{{baseUrl}}"],
+          "path": ["getToken"]
+        }
+      },
+      "response": []
+    },
+
+    {
+      "name": "3. Upload Document ",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Save document_id and task_id from response to collection variables",
+              "let data = pm.response.json();",
+              "pm.collectionVariables.set('document_id', data.document_id);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "description": "Amount < $1000 auto approval, otherwise manual approval required"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/documents/upload",
+          "host": ["{{baseUrl}}"],
+          "path": ["documents", "upload"]
+        },
+        "description": "Upload an invoice with amount < $1000. Should be automatically approved without manual intervention."
+      },
+      "response": []
+    },
+    {
+      "name": "4. Get Document Status",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Save document_id and task_id from response to collection variables",
+              "let data = pm.response.json();",
+              "pm.collectionVariables.set('task_id',  data.pending_tasks[0].task_id);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/documents/{{document_id}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["documents", "{{document_id}}"]
+        },
+        "description": "Retrieve the status and details of a specific document by its ID. Shows extracted data and approval status."
+      },
+      "response": []
+    },
+
+    {
+      "name": "5. Approve Task",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"action\": \"approve\",\n  \"reason\": \"Verified with vendor, amount is correct and within budget\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/tasks/{{task_id}}/complete",
+          "host": ["{{baseUrl}}"],
+          "path": ["tasks", "{{task_id}}", "complete"]
+        },
+        "description": "Approve a pending task. Completes the Flowable workflow and marks document as approved."
+      },
+      "response": []
+    },
+    {
+      "name": "6. Reject Task",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"action\": \"reject\",\n  \"reason\": \"Amount exceeds approved budget, vendor not verified\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/tasks/{{task_id}}/complete",
+          "host": ["{{baseUrl}}"],
+          "path": ["tasks", "{{task_id}}", "complete"]
+        },
+        "description": "Reject a pending task. Completes the Flowable workflow and marks document as rejected."
+      },
+      "response": []
+    },
+    {
+      "name": "7. Get All Pending Tasks",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Save first task_id if available",
+              "//var jsonData = pm.response.json();",
+              "//if (jsonData.tasks && jsonData.tasks.length > 0) {",
+              "//    pm.environment.set('task_id', jsonData.tasks[0].task_id);",
+              "//}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/tasks",
+          "host": ["{{baseUrl}}"],
+          "path": ["tasks"]
+        },
+        "description": "List all pending approval tasks. Shows documents waiting for manual approval with extracted data and amounts."
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000",
+      "type": "string"
+    },
+    {
+      "key": "flowableUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "authToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "document_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "task_id",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

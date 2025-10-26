@@ -1,0 +1,44 @@
+{
+  "name": "document-workflow",
+  "version": "1.0.0",
+  "description": "Document processing workflow with BPMN automation",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "test": "jest",
+    "docker:up": "docker-compose up --build",
+    "docker:down": "docker-compose down"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "express-rate-limit": "^6.10.0",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mammoth": "^1.6.0",
+    "mongodb": "^6.20.0",
+    "mongoose": "^8.19.2",
+    "multer": "^2.0.2",
+    "pdf-parse": "^1.1.1",
+    "sqlite3": "^5.1.6",
+    "uuid": "^9.0.1"
+  },
+  "optionalDependencies": {
+    "axios": "^1.12.2",
+    "form-data": "^4.0.4"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.0.1"
+  },
+  "keywords": [
+    "bpmn",
+    "workflow",
+    "document-processing",
+    "api",
+    "automation"
+  ],
+  "author": "Business Analyst",
+  "license": "MIT"
+}

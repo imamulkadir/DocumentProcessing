@@ -1,0 +1,48 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.*
+
+# Logs
+logs/
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Docker
+*.pid
+docker-compose.override.yml
+
+# MongoDB
+*.mongodb
+*.db
+
+# Build output
+/dist/
+/build/
+
+# IDE files
+.vscode/
+.idea/
+
+# Test files and coverage
+coverage/
+*.lcov
+
+# BPMN artifacts
+bpmn/*.bak
+bpmn/*.tmp
+
+# Misc
+*.swp
+*.swo
+
+# Ignore test_files output
+/test_files/*
