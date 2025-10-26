@@ -49,14 +49,6 @@ Processes PDF/DOCX invoices with automatic approval routing:
 
 ## API Endpoints
 
-### Upload Document
-
-```bash
-POST http://localhost:5000/documents/upload
-Content-Type: multipart/form-data
-Body: file (PDF or DOCX)
-```
-
 ### 1. Check Health
 
 ```bash
@@ -72,7 +64,10 @@ GET http://localhost:5000/getToken
 ### 3. Upload Document
 
 ```bash
-GET http://localhost:5000/documents/upload
+POST http://localhost:5000/documents/upload
+Authorization: Bearer
+Content-Type: multipart/form-data
+Body: file (PDF or DOCX)
 ```
 
 ### 4. Get Document Status
@@ -107,7 +102,7 @@ POST http://localhost:5000/tasks
 
 ## View BPMN Diagram
 
-**Option 1: Flowable Modeler (Import Required)**
+**Flowable Modeler (Import Required)**
 
 1. Go to http://localhost:8080/flowable-modeler/#/processes
 2. Login: admin / test
@@ -273,3 +268,5 @@ Document Processing/
         │ - reason        │
         └─────────────────┘
 ```
+
+_Author: [Imamul Kadir](https://www.linkedin.com/in/imamulkadir/)_
