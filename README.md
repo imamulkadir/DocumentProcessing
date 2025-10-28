@@ -131,7 +131,6 @@ Document Processing/
 │   ├── sample_invoice-AutoApproval.pdf
 │   ├── sample_invoice-ManualApproval.docx
 │   └── sample_invoice-ManualApproval.pdf
-├── checklis.txt
 ├── docker-compose.yml
 ├── Dockerfile
 ├── package-lock.json
